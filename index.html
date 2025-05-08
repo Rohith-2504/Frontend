@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>House Plan Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 100%;
+      width: 100%;
+      height: 60px;
+      background-color: #ffffff00;
+      color: #D4ECDD;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      z-index: 10;
+    }
+    header pre {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem;
+      color: #D4ECDD;
+      text-shadow: 0 0 5px #345b6300;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #252432;
+      color: #D4ECDD;
+      overflow-y: scroll;
+      position: relative;
+      background-image: url('static/images/blueprint.jpg'); /* Set your background image URL here */
+      background-size: cover; /* Ensures the background covers the entire viewport */
+      background-attachment: fixed; /* Makes the background image fixed while scrolling */
+      background-position: center center; /* Ensures the background is centered */
+    }
+
+    h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.2rem;
+      color: #D4ECDD;
+      text-shadow: 0 0 5px #345B63;
+      margin-top: 50px;
+      text-align: center;
+      justify-content: center;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0);
+      border-radius: 30px;
+      padding: 0px;
+      width: 30%;
+      max-width: 600px;
+      box-shadow: 0 0 20px rgba(52, 91, 99, 0);
+      text-align: center;
+      border: 2px solid #345b6300;
+      z-index: 2;
+      margin-bottom: 10px;
+      justify-content: center;
+    }
+
+    form {
+      position: relative;
+      margin: 0 auto 20px auto;
+      transition: all 1s;
+      width: 50px;
+      height: 50px;
+      background: white;
+      box-sizing: border-box;
+      border-radius: 25px;
+      border: 4px solid white;
+      padding: 5px;
+      display: flex;
+      align-items: center;
+    }
+
+    form:hover {
+      width: 100%;
+      cursor: pointer;
+    }
+
+    form input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 42.5px;
+      line-height: 30px;
+      outline: 0;
+      border: 0;
+      display: none;
+      font-size: 1rem;
+      border-radius: 20px;
+      padding: 0 20px;
+      color: #252432;
+      background-color: white;
+    }
+
+    form:hover input {
+      display: block;
+    }
+
+    form button {
+      box-sizing: border-box;
+      width: 42.5px;
+      height: 42.5px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      border-radius: 50%;
+      background: none;
+      border: none;
+      color: #8c52ff;
+      font-size: 1.2em;
+      transition: all 1s;
+      cursor: pointer;
+    }
+
+    form:hover button {
+      background: #8c52ff;
+      color: white;
+    }
+
+    #loadingText {
+      margin-top: 20px;
+      font-size: 1rem;
+      color: #D4ECDD;
+    }
+
+    #loadingAnimation {
+      width: 100px;
+      height: 100px;
+      margin: 20px auto;
+      display: none;
+    }
+
+    #planImage {
+      margin-top: 20px;
+      max-width: 100%;
+      border-radius: 10px;
+      display: none;
+      box-shadow: 0 0 12px #345B63;
+      border: 1px solid #345B63;
+    }
+
+    /* Social Share Menu */
+    .menu {
+      position: fixed;
+      bottom: 60px;
+      right: 130px;
+      width: 60px;
+      height: 60px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 1.25s;
+      z-index: 5;
+    }
+
+    .menu.active {
+      transform: rotate(360deg);
+    }
+
+    .menu li {
+  position: fixed;
+  left: 0;
+  list-style: none;
+  transform: rotate(calc(360deg / 8 * var(--i)));
+  transform-origin: 100px;  /* Adjusted radius */
+  scale: 0;
+  transition: 0.5s;
+  transition-delay: calc(0.05s * var(--i));
+}
+
+
+    .menu.active li {
+      scale: 1;
+    }
+
+    .menu li a {
+      position: relative;
+      display: flex;
+      transform: rotate(calc(360deg / -8 * var(--i)));
+      width: 60px;
+      height: 60px;
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-size: 1.75rem;
+      color: var(--clr);
+      box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
+      transition: 0.5s;
+      text-decoration: none;
+    }
+
+    .menu li:hover a {
+      font-size: 2.5rem;
+      box-shadow:
+        0 0 0 2px var(--clr),
+        0 0 0 6px #fff;
+    }
+
+    .toggle {
+      font-size: 2rem;
+      color: #333;
+    }
+
+    .blueprints {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 60px;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.blueprints.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.blueprint-container {
+  flex: 1 1 120px;
+  max-width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #345B63;
+  background-color: rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.blueprint img {
+  width: 100%;
+  height: auto;
+  transform: scale(0.1);
+  transition: transform 0.8s ease, opacity 0.8s ease;
+  opacity: 0;
+}
+
+.blueprints.visible .blueprint img {
+  transform: scale(1);
+  opacity: 1;
+}
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem 7%;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    z-index: 100;
+    transition: .5s;
+}
+
+.header.sticky {
+    background: var(--bg-color);
+    box-shadow: 0 .1rem 1rem var(--shadow-color);
+}
+
+.logo {
+    font-size: 2.5rem;
+    color: var(--main-color);
+    font-weight: 600;
+    margin-right: auto;
+}
+
+.navbar a {
+    position: relative;
+    font-size: 1.7rem;
+    color: var(--white-color);
+    font-weight: 500;
+    margin-right: 3.5rem;
+}
+
+.header.sticky .navbar a {
+    color: var(--text-color);
+}
+
+.header.sticky .navbar a.active {
+    color: var(--main-color);
+}e cc
+
+.navbar a.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: .2rem;
+    background: var(--white-color);
+}
+
+.header.sticky .navbar a::before {
+    background: var(--main-color);
+    opacity: .7;
+}
+
+#darkMode-icon {
+    font-size: 2.4rem;
+    color: var(--white-color);
+    cursor: pointer;
+}
+
+.header.sticky #darkMode-icon {
+    color: var(--text-color);
+    opacity: .9;
+}
+
+#menu-icon {
+    font-size: 3.6rem;
+    color: var(--text-color);
+    display: none;
+}
+
+section {
+    min-height: 100vh;
+    padding: 10rem 7% 2rem;
+}
+  </style>
+</head>
+
+<body>
+  <!-- header design -->
+  <header class="header">
+    <a href="#" class="logo">HPG</a>
+
+    <nav class="navbar">
+        <a href="#home" class="active">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="bx bx-moon" id="darkMode-icon"></div>
+
+    <div class="bx bx-menu" id="menu-icon"></div>
+</header>
+
+  <h2>🏡 House Plan Generator</h2>
+
+  <div class="container">
+    <form onsubmit="event.preventDefault(); generatePlan();">
+      <input type="search" id="userPrompt" placeholder="Search here..." />
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+
+    <div id="loadingText"></div>
+    <div id="loadingAnimation"></div>
+    <img id="planImage" src="" alt="Generated House Plan" />
+  </div>
+
+  <!-- Blueprints section (Initially hidden until scroll) -->
+  <div class="blueprints" id="blueprintsSection">
+    <div class="blueprint-container">
+      <div class="blueprint"><img src="static/images/blueprint1.jpg" alt="Blueprint 1"></div>
+    </div>
+    <div class="blueprint-container">
+      <div class="blueprint"><img src="static/images/blueprint2.jpg" alt="Blueprint 2"></div>
+    </div>
+    <div class="blueprint-container">
+      <div class="blueprint"><img src="static/images/blueprint3.jpg" alt="Blueprint 3"></div>
+    </div>
+  </div>
+
+  <div class="menu">
+    <div class="toggle">
+      <ion-icon name="share-social"></ion-icon>
+    </div>
+
+    <li style="--i: 0; --clr: #1877f2">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+    </li>
+    <li style="--i: 1; --clr: #25d366">
+      <a href="#"><i class="fab fa-whatsapp"></i></a>
+    </li>
+    <li style="--i: 2; --clr: #1b1e21">
+      <a href="#"><i class="fab fa-x-twitter"></i></a>
+    </li>
+    <li style="--i: 3; --clr: #ff5733">
+      <a href="#"><i class="fab fa-reddit-alien"></i></a>
+    </li>
+    <li style="--i: 4; --clr: #0a66c2">
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    </li>
+    <li style="--i: 5; --clr: #c32aa3">
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </li>
+    <li style="--i: 6; --clr: #1b1e21">
+      <a href="#"><i class="fab fa-github"></i></a>
+    </li>
+    <li style="--i: 7; --clr: #ff0000">
+      <a href="#"><i class="fab fa-youtube"></i></a>
+    </li>
+  </div>
+
+  <script src='https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js'></script>
+
+  <script>
+  
+  const blueprintsSection = document.querySelector('.blueprints');
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        blueprintsSection.classList.add('visible');
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.1 });
+
+  observer.observe(blueprintsSection);
+
+
+    let loadingAnimation = null;
+
+    document.addEventListener("DOMContentLoaded", function () {
+  loadingAnimation = lottie.loadAnimation({
+    container: document.getElementById("loadingAnimation"),
+    renderer: "svg",
+    loop: true,
+    autoplay: false,
+    path: "https://assets6.lottiefiles.com/packages/lf20_9wpyhdzo.json" // house construction animation
+  });
+
+        // Using Intersection Observer to detect when the blueprints are in view
+        const blueprintsSection = document.getElementById("blueprintsSection");
+
+const observer = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      // When blueprints come into view, apply styles to show and scale them
+      document.querySelector('.blueprints').style.opacity = 1;
+      document.querySelector('.blueprints').style.transform = 'scale(1)';
+      document.querySelectorAll('.blueprint').forEach(item => {
+        item.style.opacity = 1; // Show the individual blueprints
+      });
+      observer.disconnect(); // Stop observing after the blueprints are shown
+    }
+  });
+}, { threshold: 0.1 });
+
+observer.observe(blueprintsSection);
+});
+
+
+    function generatePlan() {
+      const prompt = document.getElementById("userPrompt").value.trim();
+      const loadingText = document.getElementById("loadingText");
+      const loadingContainer = document.getElementById("loadingAnimation");
+      const planImage = document.getElementById("planImage");
+
+      if (!prompt) {
+        loadingText.textContent = "⚠️ Please enter a prompt.";
+        loadingContainer.style.display = "none";
+        planImage.style.display = "none";
+        return;
+      }
+
+      loadingText.textContent = "🛠️ Generating your house plan image...";
+      loadingContainer.style.display = "block";
+      loadingAnimation.play();
+      planImage.style.display = "none";
+
+      fetch("http://127.0.0.1:5000/generate-house-plan", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: prompt })
+      })
+      .then(response => response.json())
+      .then(data => {
+        loadingContainer.style.display = "none";
+        loadingAnimation.stop();
+        if (data.imageUrl) {
+          planImage.src = data.imageUrl;
+          planImage.style.display = "block";
+          loadingText.textContent = "✅ Here’s your house plan:";
+        } else {
+          loadingText.textContent = "⚠️ No image returned. Try again.";
+          planImage.style.display = "none";
+        }
+      })
+      .catch(error => {
+        console.error("Backend Error:", error);
+        loadingContainer.style.display = "none";
+        loadingAnimation.stop();
+        loadingText.textContent = "❌ Failed to fetch image. Please check the backend.";
+        planImage.style.display = "none";
+      });
+    }
+
+    document.querySelector(".toggle").addEventListener("click", () => {
+      document.querySelector(".menu").classList.toggle("active");
+    });
+  </script>
+</body>
+</html>
