@@ -1,46 +1,394 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - Card Hover Effect V3</title>
+  <title>Team Page</title>
   <link rel="stylesheet" href="./style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+  <style>
+    html {
+  scroll-behavior: smooth;
+}
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background-color: transparent;
+      color: #D4ECDD;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      z-index: 10;
+    }
+
+    header pre {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem;
+      color: #D4ECDD;
+      text-shadow: 0 0 5px transparent;
+    }
+    .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem 7%;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    z-index: 100;
+    transition: .5s;
+}
+
+.header.sticky {
+    background: var(--bg-color);
+    box-shadow: 0 .1rem 1rem var(--shadow-color);
+}
+
+.logo {
+    font-size: 2.5rem;
+    color: var(--main-color);
+    font-weight: 600;
+    margin-right: auto;
+}
+
+.navbar a {
+    position: relative;
+    font-size: 1.7rem;
+    color: var(--white-color);
+    font-weight: 500;
+    margin-right: 3.5rem;
+}
+
+.header.sticky .navbar a {
+    color: var(--text-color);
+}
+
+.header.sticky .navbar a.active {
+    color: var(--main-color);
+}e cc
+
+.navbar a.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: .2rem;
+    background: var(--white-color);
+}
+
+.header.sticky .navbar a::before {
+    background: var(--main-color);
+    opacity: .7;
+}
+
+#darkMode-icon {
+    font-size: 2.4rem;
+    color: var(--white-color);
+    cursor: pointer;
+}
+
+.header.sticky #darkMode-icon {
+    color: var(--text-color);
+    opacity: .9;
+}
+
+#menu-icon {
+    font-size: 3.6rem;
+    color: var(--text-color);
+    display: none;
+}
+
+section {
+    min-height: 100vh;
+    padding: 10rem 7% 2rem;
+}
+/* body */
+    body {
+      background-image: url('static/images/TeamBG.jpg');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      width: 100vw;
+      min-height: 100vh;
+      font-family: "Poppins", sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /*team photos */
+
+   @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap");
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #f0f0f0;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.container .box {
+  position: relative;
+  width: 30rem;
+  height: 30rem;
+  margin: 4rem;
+}
+
+.container .box:hover .imgBox {
+  transform: translate(-3.5rem, -3.5rem);
+}
+
+.container .box:hover .content {
+  transform: translate(3.5rem, 3.5rem);
+}
+
+.imgBox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  transition: all 0.5s ease-in-out;
+}
+
+.imgBox img {
+  width: 30rem;
+  height: 30rem;
+  object-fit: cover;
+  resize: both;
+}
+
+.content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+  z-index: 1;
+  align-items: flex-end;
+  text-align: center;
+  transition: 0.5s ease-in-out;
+}
+
+.content h2 {
+  display: block;
+  font-size: 2rem;
+  color: #111;
+  font-weight: 500;
+  line-height: 2rem;
+  letter-spacing: 1px;
+}
+
+.content span {
+  color: #555;
+  font-size: 1.4rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+@media (max-width: 600px) {
+  .container .box:hover .content {
+    transform: translate(0, 3.5rem);
+  }
+  .container .box:hover .imgBox {
+    transform: translate(0, -3.5rem);
+  }
+}
+    /* Social Share Menu */
+    .menu {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      width: 280px;
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .menu .toggle {
+      height: 60px;
+      width: 60px;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: 1.25s;
+      z-index: 5;
+    }
+
+    .menu.active .toggle {
+      transform: rotate(360deg);
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 0 0 2px #333, 0 0 0 8px #fff;
+    }
+
+    .menu li {
+      position: absolute;
+      left: 0;
+      list-style: none;
+      transition: 0.5s;
+      transform: rotate(calc(360deg / 8 * var(--i)));
+      transform-origin: 140px;
+      scale: 0;
+      transition-delay: calc(0.05s * var(--i));
+    }
+
+    .menu.active li {
+      scale: 1;
+    }
+
+    .menu li a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      background-color: #fff;
+      border-radius: 50%;
+      font-size: 1.75rem;
+      color: var(--clr);
+      box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
+      text-decoration: none;
+      transform: rotate(calc(360deg / -8 * var(--i)));
+    }
+
+    .menu li:hover a {
+      font-size: 2.5rem;
+      box-shadow: 0 0 0 2px var(--clr), 0 0 0 6px #fff;
+    }
+  </style>
 </head>
 <body>
-<!-- partial:index.partial.html -->
-<div class="container">
-  <div class="box">
-    <div class="imgBox">
-      <img src="https://bit.ly/3Y5oMQG" alt="">
+  <!-- Header -->
+ <header class="header">
+  <a href="#" class="logo">HPG</a>
+
+  <nav class="navbar">
+    <a href="index.html" class="active">Home</a>
+    <a href="Team.html">Team</a>
+    <a href="#services">Services</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+  <!-- Team Cards -->
+  <div class="container">
+    <div class="box">
+      <div class="imgBox">
+        <img src="https://bit.ly/3Y5oMQG" alt="Abhijit">
+      </div>
+      <div class="content">
+        <h2>Abhijit <span>Graphic Designer</span></h2>
+      </div>
     </div>
-    <div class="content">
-      <h2>Karan Singh</br>
-        <span>Graphic Designer</span>
-      </h2>
+
+    <div class="box">
+      <div class="imgBox">
+        <img src="https://bit.ly/3Y5oMQG" alt="Rajesh">
+      </div>
+      <div class="content">
+        <h2>Rajesh <span>Graphic Designer</span></h2>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="imgBox">
+        <img src="https://bit.ly/3kPjqKZ" alt="Shodhan N Bangera">
+      </div>
+      <div class="content">
+        <h2>Shodhan N Bangera <span>Digital Marketing</span></h2>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="imgBox">
+        <img src="https://bit.ly/3RlDh0G" alt="Rohith Reddy B">
+      </div>
+      <div class="content">
+        <h2>Rohith Reddy B <span>Chartered Accountant</span></h2>
+      </div>
     </div>
   </div>
-  <div class="box">
-    <div class="imgBox">
-      <img src="https://bit.ly/3kPjqKZ" alt="">
-    </div>
-    <div class="content">
-      <h2>Dolly Seth</br>
-        <span>Digital Marketing</span>
-      </h2>
-    </div>
+
+  <!-- Share Menu -->
+ <div class="menu">
+  <div class="toggle">
+    <ion-icon name="share-social"></ion-icon>
   </div>
-  <div class="box">
-    <div class="imgBox">
-      <img src="https://bit.ly/3RlDh0G" alt="">
-    </div>
-    <div class="content">
-      <h2>Aakash Agrawal</br>
-        <span>Chartered Accountant C.A</span>
-      </h2>
-    </div>
-  </div>
+
+  <li style="--i: 0; --clr: #1877f2">
+    <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+  </li>
+  <li style="--i: 1; --clr: #25d366">
+    <a href="https://wa.me/?text=Check%20this%20out!" target="_blank"><i class="fab fa-whatsapp"></i></a>
+  </li>
+  <li style="--i: 2; --clr: #1b1e21">
+    <a href="https://twitter.com" target="_blank"><i class="fab fa-x-twitter"></i></a>
+  </li>
+  <li style="--i: 3; --clr: #ff5733">
+    <a href="https://www.reddit.com" target="_blank"><i class="fab fa-reddit-alien"></i></a>
+  </li>
+  <li style="--i: 4; --clr: #0a66c2">
+    <a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+  </li>
+  <li style="--i: 5; --clr: #c32aa3">
+    <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+  </li>
+  <li style="--i: 6; --clr: #1b1e21">
+    <a href="https://www.github.com" target="_blank"><i class="fab fa-github"></i></a>
+  </li>
+  <li style="--i: 7; --clr: #ff0000">
+    <a href="https://www.youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+  </li>
 </div>
-<!-- partial -->
-  
+
+  <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script>
+    document.querySelector(".toggle").addEventListener("click", () => {
+      document.querySelector(".menu").classList.toggle("active");
+    });
+  </script>
 </body>
 </html>

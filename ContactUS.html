@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Responsive Contact Us Page</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome (for share icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <!-- Ionicons -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* Scroll behavior */
+    html { scroll-behavior: smooth; }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-image: url('static/images/TeamBG.jpg');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      width: 100vw;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header.header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 2rem 7%;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      z-index: 100;
+      transition: 0.5s;
+    }
+
+    .header.sticky {
+      background: #111;
+      box-shadow: 0 0.1rem 1rem rgba(0, 0, 0, 0.2);
+    }
+
+    .logo {
+      font-size: 2.5rem;
+      color: #00bcd4;
+      font-weight: 600;
+      margin-right: auto;
+    }
+
+    .navbar a {
+      position: relative;
+      font-size: 1.7rem;
+      color: #fff;
+      font-weight: 500;
+      margin-right: 3.5rem;
+      text-decoration: none;
+    }
+
+    .navbar a.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 100%;
+      height: 0.2rem;
+      background: #fff;
+    }
+
+    section.contact {
+      min-height: 100vh;
+      padding: 10rem 7% 2rem;
+      background: #222;
+      width: 100%;
+    }
+
+    .contact .content {
+      max-width: 800px;
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    .contact .content h2 {
+      font-size: 3em;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .contact .content p {
+      color: #fff;
+      font-size: 1.1em;
+      font-weight: 300;
+    }
+
+    .container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 50px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .contactInfo {
+      width: 45%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contactInfo .box {
+      display: flex;
+      align-items: center;
+      padding: 20px 0;
+    }
+
+    .contactInfo .icon {
+      min-width: 60px;
+      height: 60px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.75em;
+    }
+
+    .contactInfo .box:hover .icon {
+      background: #00bcd4;
+      color: #fff;
+    }
+
+    .contactInfo .text {
+      margin-left: 20px;
+      color: #fff;
+    }
+
+    .contactInfo .text h3 {
+      color: #00bcd4;
+    }
+
+    .txt {
+      color: #fff;
+      margin-top: 50px;
+      font-weight: 500;
+      padding-left: 10px;
+      border-left: 5px solid #e91e63;
+    }
+
+    .sci {
+      display: flex;
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .sci li {
+      list-style: none;
+    }
+
+    .sci li a {
+      color: #fff;
+      font-size: 2em;
+      transition: 0.5s;
+    }
+
+    .sci li a:hover {
+      color: #00bcd4;
+    }
+
+    .contactForm {
+      width: 45%;
+      background: #fff;
+      padding: 60px;
+    }
+
+    .contactForm h2 {
+      font-size: 2em;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .inputBox {
+      position: relative;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .inputBox input,
+    .inputBox textarea {
+      width: 100%;
+      padding: 5px 0;
+      font-size: 1.1em;
+      margin: 10px 0;
+      border: none;
+      border-bottom: 2px solid #333;
+      outline: none;
+      resize: none;
+    }
+
+    .inputBox span {
+      position: absolute;
+      left: 0;
+      pointer-events: none;
+      padding: 5px 0;
+      margin: 10px 0;
+      font-size: 1.1em;
+      color: #666;
+      transition: 0.5s;
+    }
+
+    .inputBox input:focus ~ span,
+    .inputBox textarea:focus ~ span,
+    .inputBox input:valid ~ span,
+    .inputBox textarea:valid ~ span {
+      color: #e91e63;
+      font-size: 0.9em;
+      transform: translateY(-20px);
+    }
+
+    .inputBox input[type="submit"] {
+      width: 100px;
+      background: #00bcd4;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      font-size: 1.1em;
+      cursor: pointer;
+    }
+
+    @media (max-width: 991px) {
+      .contact {
+        padding: 50px;
+      }
+
+      .container {
+        flex-direction: column;
+      }
+
+      .contactInfo,
+      .contactForm {
+        width: 100%;
+      }
+
+      .contactForm {
+        padding: 50px 30px;
+      }
+    }
+
+    .menu {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      width: 280px;
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .menu .toggle {
+      width: 60px;
+      height: 60px;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: 1.25s;
+    }
+
+    .menu.active .toggle {
+      transform: rotate(360deg);
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 0 0 2px #333, 0 0 0 8px #fff;
+    }
+
+    .menu li {
+      position: absolute;
+      left: 0;
+      list-style: none;
+      transform: rotate(calc(360deg / 8 * var(--i)));
+      transform-origin: 140px;
+      scale: 0;
+      transition: 0.5s;
+      transition-delay: calc(0.05s * var(--i));
+    }
+
+    .menu.active li {
+      scale: 1;
+    }
+
+    .menu li a {
+      width: 60px;
+      height: 60px;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--clr);
+      font-size: 1.75rem;
+      text-decoration: none;
+      transform: rotate(calc(360deg / -8 * var(--i)));
+    }
+
+    .menu li:hover a {
+      font-size: 2.5rem;
+      box-shadow: 0 0 0 2px var(--clr), 0 0 0 6px #fff;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <a href="#" class="logo">HPG</a>
+    <nav class="navbar">
+      <a href="index.html" class="active">Home</a>
+      <a href="Team.html">Team</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <div class="content">
+      <h2>Contact Us</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem numquam id reprehenderit, sunt laudantium enim possimus repellat debitis et quis!</p>
+    </div>
+
+    <div class="container">
+      <div class="contactInfo">
+        <div class="box">
+          <div class="icon"><ion-icon name="location-outline"></ion-icon></div>
+          <div class="text">
+            <h3>Address</h3>
+            <p>402671 Sugar Camp Road,<br>Owatonna, Minnesota,<br>55025060</p>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="icon"><ion-icon name="call-outline"></ion-icon></div>
+          <div class="text">
+            <h3>Phone</h3>
+            <p>000-000-0000</p>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="icon"><ion-icon name="mail-outline"></ion-icon></div>
+          <div class="text">
+            <h3>Email</h3>
+            <p>wrub7d78i0e@temporary-mail</p>
+          </div>
+        </div>
+
+        <h2 class="txt">Connect with us</h2>
+        <ul class="sci">
+          <li><a href="#"><ion-icon name="logo-facebook"></ion-icon></a></li>
+          <li><a href="#"><ion-icon name="logo-twitter"></ion-icon></a></li>
+          <li><a href="#"><ion-icon name="logo-linkedin"></ion-icon></a></li>
+          <li><a href="#"><ion-icon name="logo-instagram"></ion-icon></a></li>
+        </ul>
+      </div>
+
+      <div class="contactForm">
+        <form>
+          <h2>Send Message</h2>
+          <div class="inputBox">
+            <input type="text" required />
+            <span>Full Name</span>
+          </div>
+          <div class="inputBox">
+            <input type="email" required />
+            <span>Email</span>
+          </div>
+          <div class="inputBox">
+            <textarea required></textarea>
+            <span>Type your Message...</span>
+          </div>
+          <div class="inputBox">
+            <input type="submit" value="Send" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating Share Menu -->
+  <div class="menu">
+    <div class="toggle"><ion-icon name="share-social"></ion-icon></div>
+
+    <li style="--i: 0; --clr: #1877f2"><a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+    <li style="--i: 1; --clr: #25d366"><a href="https://wa.me/?text=Check%20this%20out!" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+    <li style="--i: 2; --clr: #1b1e21"><a href="https://twitter.com" target="_blank"><i class="fab fa-x-twitter"></i></a></li>
+    <li style="--i: 3; --clr: #ff5733"><a href="https://reddit.com" target="_blank"><i class="fab fa-reddit-alien"></i></a></li>
+    <li style="--i: 4; --clr: #0a66c2"><a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+    <li style="--i: 5; --clr: #c32aa3"><a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a></li>
+    <li style="--i: 6; --clr: #1b1e21"><a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a></li>
+    <li style="--i: 7; --clr: #ff0000"><a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a></li>
+  </div>
+
+  <script>
+    document.querySelector(".toggle").addEventListener("click", () => {
+      document.querySelector(".menu").classList.toggle("active");
+    });
+  </script>
+</body>
+</html>
