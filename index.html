@@ -8,7 +8,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+  <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
   <style>
     html {
         scroll-behavior: smooth;
@@ -21,7 +21,7 @@
       right: 100%;
       width: 100%;
       height: 60px;
-      background-color: #ffffff00;
+      background-color: #3c3fff9f;
       color: #D4ECDD;
       display: flex;
       justify-content: space-between;
@@ -30,11 +30,88 @@
       z-index: 10;
     }
     header pre {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Kaushan Script', cursive;
       font-size: 0.9rem;
       color: #D4ECDD;
       text-shadow: 0 0 5px #345b6300;
     }
+    .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem 7%;
+    background: black;
+    display: flex;
+    align-items: center;
+    z-index: 100;
+    transition: .5s;
+}
+
+.header.sticky {
+    background: var(--bg-color);
+    box-shadow: 0 .1rem 1rem var(--shadow-color);
+}
+
+.logo {
+    font-size: 2.5rem;
+    color: var(--main-color);
+    font-weight: 600;
+    margin-right: auto;
+}
+
+.navbar a {
+    position: relative;
+    font-size: 1.7rem;
+    color: var(--white-color);
+    font-weight: 500;
+    margin-right: 3.5rem;
+}
+
+.header.sticky .navbar a {
+    color: var(--text-color);
+}
+
+.header.sticky .navbar a.active {
+    color: var(--main-color);
+}e cc
+
+.navbar a.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: .2rem;
+    background: var(--white-color);
+}
+
+.header.sticky .navbar a::before {
+    background: var(--main-color);
+    opacity: .7;
+}
+
+#darkMode-icon {
+    font-size: 2.4rem;
+    color: var(--white-color);
+    cursor: pointer;
+}
+
+.header.sticky #darkMode-icon {
+    color: var(--text-color);
+    opacity: .9;
+}
+
+#menu-icon {
+    font-size: 3.6rem;
+    color: var(--text-color);
+    display: none;
+}
+
+section {
+    min-height: 100vh;
+    padding: 10rem 7% 2rem;
+}
 
     body {
       font-family: 'Poppins', sans-serif;
@@ -275,83 +352,6 @@
 .blueprints.visible .blueprint img {
   transform: scale(1);
   opacity: 1;
-}
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 2rem 7%;
-    background: transparent;
-    display: flex;
-    align-items: center;
-    z-index: 100;
-    transition: .5s;
-}
-
-.header.sticky {
-    background: var(--bg-color);
-    box-shadow: 0 .1rem 1rem var(--shadow-color);
-}
-
-.logo {
-    font-size: 2.5rem;
-    color: var(--main-color);
-    font-weight: 600;
-    margin-right: auto;
-}
-
-.navbar a {
-    position: relative;
-    font-size: 1.7rem;
-    color: var(--white-color);
-    font-weight: 500;
-    margin-right: 3.5rem;
-}
-
-.header.sticky .navbar a {
-    color: var(--text-color);
-}
-
-.header.sticky .navbar a.active {
-    color: var(--main-color);
-}e cc
-
-.navbar a.active::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    width: 100%;
-    height: .2rem;
-    background: var(--white-color);
-}
-
-.header.sticky .navbar a::before {
-    background: var(--main-color);
-    opacity: .7;
-}
-
-#darkMode-icon {
-    font-size: 2.4rem;
-    color: var(--white-color);
-    cursor: pointer;
-}
-
-.header.sticky #darkMode-icon {
-    color: var(--text-color);
-    opacity: .9;
-}
-
-#menu-icon {
-    font-size: 3.6rem;
-    color: var(--text-color);
-    display: none;
-}
-
-section {
-    min-height: 100vh;
-    padding: 10rem 7% 2rem;
 }
   </style>
 </head>
